@@ -45,6 +45,10 @@ Após ter criado as migrations, execute o comando abaixo para iniciar o aplicati
 
 ```yarn dev:server```
 
+para rodar os testes, rode o comanda abaixo:
+
+```yarn test```
+
 ### Rotas da aplicação
 
 Agora que a api esta rodando é possivel consultar as rota.
