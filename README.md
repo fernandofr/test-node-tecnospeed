@@ -45,6 +45,10 @@ Após ter criado as migrations, execute o comando abaixo para iniciar o aplicati
 
 ```yarn dev:server```
 
+para rodar os testes, rode o comanda abaixo:
+
+```yarn test```
+
 ### Rotas da aplicação
 
 Agora que a api esta rodando é possivel consultar as rota.
@@ -102,6 +106,11 @@ Agora que a api esta rodando é possivel consultar as rota.
 ```
 
 #### Transactions
+
+Para utilizar a rota de `transactions` é necessario estar autenticado na aplicação. Para isto é preciso com o usuário criado solicitar o `token` utilizando a rota de `session`. E informar o `token` no header da requisição.
+
+**Dica**: Após ter o token, no insomnia entre na aba authentication, escolha `Bearer Token` e informe o token. Se preferir no insomnia é possivel definir variáveis https://support.insomnia.rest/article/18-environment-variables **
+
 - **`POST /transactions`**: A rota deve receber `title`, `value`, `type`, e `category` dentro do corpo da requisição, sendo o `type` o tipo do lançamento, que deve ser `entrada` ou `saida`. Ao cadastrar uma nova transação, ela deve ser armazenada dentro do seu banco de dados, possuindo os campos `id`, `title`, `value`, `type`, `category_id`, `created_at`, `updated_at`.
 
 ```json
@@ -149,3 +158,10 @@ Agora que a api esta rodando é possivel consultar as rota.
 }
 ```
 - **`DELETE /transactions/:id`**: A rota deve deletar uma transação com o `id` presente nos parâmetros da rota;
+
+### Testando api
+
+Para testar a api recomendo utilizar o [Insomnia](https://insomnia.rest/) que é um cliente http que nos permite fazer requisições na api `Get`, `Post`, `Delete`, `Put`. E é bem simples de ser utilizado. Caso utilize um sistema 32 bits recomendo utilizar o [Postman](https://www.postman.com/).
+
+Após baixar o insomnia, import o arquivo `insomnia.json` que esta na raiz do projeto. Este arquivo possui as rotas cadastradas para facilitar o teste na api.
+Caso tenha duvida de como fazer consulte https://support.insomnia.rest/article/52-importing-and-exporting-data.
