@@ -16,6 +16,7 @@ describe('CreateTransaction', () => {
       value: 3000,
       type: 'entrada',
       category: 'funcionario',
+      user_id: 'b30dfbeb-2849-460c-afea-803b3145554e',
     });
 
     expect(transaction).toHaveProperty('id');

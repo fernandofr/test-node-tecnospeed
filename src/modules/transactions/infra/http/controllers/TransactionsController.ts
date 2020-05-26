@@ -11,7 +11,8 @@ export default class TransactionsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const readTransaction = container.resolve(ReadTransactionService);
 
-    const transactions = await readTransaction.execute();
+    const { id } = request.user;
+    const transactions = await readTransaction.execute(id);
 
     return response.json(transactions);
   }
@@ -31,6 +32,7 @@ export default class TransactionsController {
       value,
       type,
       category: findOrCreateCategory.id,
+      user_id: request.user.id,
     });
 
     return response.json(transaction);
@@ -41,7 +43,7 @@ export default class TransactionsController {
 
     const deleteTransaction = container.resolve(DeleteTransactionService);
 
-    deleteTransaction.execute(id);
+    deleteTransaction.execute(id, request.user.id);
 
     return response.status(204).send();
   }

@@ -14,8 +14,10 @@ class TransactionsRepository implements ITransactionsRepository {
     this.ormRepository = getRepository(Transaction);
   }
 
-  private async getBalance(): Promise<IBalance> {
-    const transactions = await this.ormRepository.find();
+  private async getBalance(id: string): Promise<IBalance> {
+    const transactions = await this.ormRepository.find({
+      where: { user_id: id },
+    });
 
     const { entrada, saida } = transactions.reduce(
       (accumulator: IBalance, transaction: Transaction) => {
@@ -43,9 +45,14 @@ class TransactionsRepository implements ITransactionsRepository {
     return { entrada, saida, total };
   }
 
-  public async findAllTransactions(): Promise<ITransactionsDTO> {
-    const transactions = await this.ormRepository.find();
-    const { total } = await this.getBalance();
+  public async findAllTransactionsByUser(
+    id: string,
+  ): Promise<ITransactionsDTO> {
+    const transactions = await this.ormRepository.find({
+      where: { user_id: id },
+    });
+
+    const { total } = await this.getBalance(id);
 
     return { total, transactions };
   }
@@ -55,12 +62,14 @@ class TransactionsRepository implements ITransactionsRepository {
     value,
     type,
     category,
+    user_id,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = this.ormRepository.create({
       title,
       type,
       value,
       category_id: category,
+      user_id,
     });
 
     await this.ormRepository.save(transaction);
@@ -68,8 +77,11 @@ class TransactionsRepository implements ITransactionsRepository {
     return transaction;
   }
 
-  public async deleteTransactionById(id: string): Promise<void> {
-    await this.ormRepository.delete(id);
+  public async deleteTransactionById(
+    transactionId: string,
+    userId: string,
+  ): Promise<void> {
+    await this.ormRepository.delete({ id: transactionId, user_id: userId });
   }
 }
 
