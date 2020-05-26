@@ -3,4 +3,5 @@ export default interface ICreateTransactionDTO {
   value: number;
   type: 'entrada' | 'saida';
   category: string;
+  user_id: string;
 }

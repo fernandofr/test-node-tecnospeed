@@ -9,7 +9,7 @@ class DeleteTransactionService {
   ) {}
 
   public async execute(id: string): Promise<void> {
-    await this.transactionsRepository.deleteTransactionById(id);
+    await this.transactionsRepository.delete(id);
   }
 }
 

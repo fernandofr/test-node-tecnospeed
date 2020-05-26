@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import Category from '@modules/categorys/infra/typeorm/entities/Category';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('transactions')
 class Transaction {
@@ -30,6 +31,13 @@ class Transaction {
 
   @Column()
   category_id: string;
+
+  @Column({ select: false })
+  user_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

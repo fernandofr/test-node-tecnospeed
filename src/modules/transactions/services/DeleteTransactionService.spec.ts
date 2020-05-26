@@ -16,11 +16,14 @@ describe('DeleteTransaction', () => {
       fakeTransactionsRepository,
     );
 
+    const userId = 'b30dfbeb-2849-460c-afea-803b3145554e';
+
     const transaction = await createTransaction.execute({
       title: 'salário',
       value: 3000,
       type: 'entrada',
       category: 'funcionario',
+      user_id: userId,
     });
 
     deleteTransaction.execute(transaction.id);

@@ -4,7 +4,7 @@ import ICreateTransactionDTO from '../dtos/ICreateTransactionDTO';
 import ITransactionsDTO from '../dtos/ITransactionsDTO';
 
 export default interface ITransactionsRepository {
-  findAllTransactions(): Promise<ITransactionsDTO>;
+  findAllTransactionsByUser(id: string): Promise<ITransactionsDTO>;
   create(data: ICreateTransactionDTO): Promise<Transaction>;
-  deleteTransactionById(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }

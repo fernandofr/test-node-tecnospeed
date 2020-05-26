@@ -10,7 +10,7 @@ import Transaction from '../../infra/typeorm/entities/Transaction';
 class TransactionsRepository implements ITransactionsRepository {
   private transactions: Transaction[] = [];
 
-  private async getBalance(): Promise<IBalance> {
+  private async getBalance(id: string): Promise<IBalance> {
     const { entrada, saida } = this.transactions.reduce(
       (accumulator: IBalance, transaction: Transaction) => {
         switch (transaction.type) {
@@ -37,9 +37,13 @@ class TransactionsRepository implements ITransactionsRepository {
     return { entrada, saida, total };
   }
 
-  public async findAllTransactions(): Promise<ITransactionsDTO> {
-    const { total } = await this.getBalance();
-    const { transactions } = this;
+  public async findAllTransactionsByUser(
+    id: string,
+  ): Promise<ITransactionsDTO> {
+    const { total } = await this.getBalance(id);
+    const transactions = this.transactions.filter(
+      transaction => transaction.user_id === id,
+    );
 
     return { total, transactions };
   }
@@ -49,6 +53,7 @@ class TransactionsRepository implements ITransactionsRepository {
     value,
     type,
     category,
+    user_id,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = new Transaction();
 
@@ -58,6 +63,7 @@ class TransactionsRepository implements ITransactionsRepository {
       value,
       type,
       category_id: category,
+      user_id,
     });
 
     this.transactions.push(transaction);
@@ -65,7 +71,7 @@ class TransactionsRepository implements ITransactionsRepository {
     return transaction;
   }
 
-  public async deleteTransactionById(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     this.transactions.filter(transaction => transaction.id !== id);
   }
 }

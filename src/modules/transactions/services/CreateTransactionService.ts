@@ -8,6 +8,7 @@ interface IRequest {
   value: number;
   type: 'entrada' | 'saida';
   category: string;
+  user_id: string;
 }
 
 @injectable()
