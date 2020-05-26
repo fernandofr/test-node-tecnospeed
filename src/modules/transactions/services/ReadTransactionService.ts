@@ -9,8 +9,8 @@ class ReadTransactionService {
     private transactionsRepository: ITransactionsRepository,
   ) {}
 
-  public async execute(): Promise<ITransactionsDTO> {
-    return this.transactionsRepository.findAllTransactions();
+  public async execute(id: string): Promise<ITransactionsDTO> {
+    return this.transactionsRepository.findAllTransactionsByUser(id);
   }
 }
 
