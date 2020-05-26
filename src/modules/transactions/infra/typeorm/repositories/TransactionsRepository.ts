@@ -77,11 +77,8 @@ class TransactionsRepository implements ITransactionsRepository {
     return transaction;
   }
 
-  public async deleteTransactionById(
-    transactionId: string,
-    userId: string,
-  ): Promise<void> {
-    await this.ormRepository.delete({ id: transactionId, user_id: userId });
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 }
 

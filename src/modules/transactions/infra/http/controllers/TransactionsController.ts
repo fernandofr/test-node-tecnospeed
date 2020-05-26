@@ -43,7 +43,7 @@ export default class TransactionsController {
 
     const deleteTransaction = container.resolve(DeleteTransactionService);
 
-    deleteTransaction.execute(id, request.user.id);
+    deleteTransaction.execute(id);
 
     return response.status(204).send();
   }

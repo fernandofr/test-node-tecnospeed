@@ -71,8 +71,8 @@ class TransactionsRepository implements ITransactionsRepository {
     return transaction;
   }
 
-  public async deleteTransactionById((transactionId: string, userId: string): Promise<void> {
-    this.transactions.filter(transaction => (transaction.id !== transactionId && transaction.user_id === userId));
+  public async delete(id: string): Promise<void> {
+    this.transactions.filter(transaction => transaction.id !== id);
   }
 }
 
