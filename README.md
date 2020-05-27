@@ -125,9 +125,7 @@ Para utilizar a rota de `transactions` é necessario estar autenticado na aplica
 }
 ```
 
-- **`GET /transactions`**: Essa rota deve retornar uma listagem com todas as transações cadastradas, junto com o valor total da soma de entradas e saida. Essa rota deve retornar um objeto o seguinte formato:
-
-**Observação**: Esta rota irá mostrar apenas os lançamentos do usuário autenticado. **
+- **`GET /transactions`**: Essa rota deve retornar uma listagem com todas as transações cadastradas do usuário autenticado, junto com o valor total da soma de entradas e saida. Essa rota deve retornar um objeto o seguinte formato:
 
 ```json
 {
